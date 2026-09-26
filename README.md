@@ -12,24 +12,30 @@ like Go channels:
 Each channel is one agent session. Each message runs `claude -p`, `codex exec` or `grok -p`
 in the server's working directory, with permission checks off, and with the settings that agent already has.
 
-## Run
+## Install
 
 ```sh
-cargo build --release
+cargo install agentchan
 ```
 
 The server offers every agent that is installed and signed in when it starts.
 
 ```sh
 # Claude Code
-claude mcp add --scope user agentchan -- ~/Code/agentchan/target/release/agentchan
+claude mcp add --scope user agentchan -- agentchan
 ```
 
 ```toml
 # Codex: ~/.codex/config.toml
 [mcp_servers.agentchan]
-command = "/home/dariusm/Code/agentchan/target/release/agentchan"
+command = "agentchan"
 ```
+
+## Security
+
+The called agent runs with permission checks off. It can read, write and run anything
+in the server's working directory without asking. Any agent that can call agentchan gets
+that access.
 
 ## Test
 
@@ -42,3 +48,7 @@ cargo test -- --ignored    # the real CLIs that are signed in
 
 Each message uses the called agent's own login and plan limits.
 Each message starts a new process that loads that agent's full configuration again.
+
+## Links
+
+- MCP Registry name: `mcp-name: io.github.damejeras/agentchan`

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.damejeras/agentchan",
+  "title": "agentchan",
+  "description": "Lets one coding agent talk to another: Claude Code, Codex or Grok",
+  "repository": {
+    "url": "https://github.com/damejeras/agentchan",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "cargo",
+      "identifier": "agentchan",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
