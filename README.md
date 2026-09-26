@@ -14,6 +14,14 @@ in the server's working directory, with permission checks off, and with the sett
 
 ## Install
 
+Linux and macOS, prebuilt:
+
+```sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/damejeras/agentchan/releases/latest/download/agentchan-installer.sh | sh
+```
+
+From source:
+
 ```sh
 cargo install agentchan
 ```
