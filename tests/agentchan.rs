@@ -37,7 +37,7 @@ flood)
   exit 0 ;;
 esac
 printf '{"type":"result","is_error":false,"session_id":"claude-session","result":"resume=%s prompt=%s"}\n' \
-  "$resume" "$(printf %s "$prompt" | head -c 20) bytes=$(printf %s "$prompt" | wc -c)"
+  "$resume" "$(printf %s "$prompt" | head -c 20) bytes=$(printf %s "$prompt" | wc -c | tr -d " ")"
 "#;
 
 const FAKE_CODEX: &str = r#"#!/bin/sh
@@ -80,7 +80,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 printf '{\n  "text": "resume=%s prompt=%s",\n  "stopReason": "end_turn",\n  "sessionId": "grok-session"\n}\n' \
-  "$resume" "$(printf %s "$prompt" | head -c 20) bytes=$(printf %s "$prompt" | wc -c)"
+  "$resume" "$(printf %s "$prompt" | head -c 20) bytes=$(printf %s "$prompt" | wc -c | tr -d " ")"
 "#;
 
 struct Fakes {
