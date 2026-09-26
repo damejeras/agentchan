@@ -17,3 +17,5 @@ install-path = "CARGO_HOME"
 hosting = "github"
 # Whether to install an updater program
 install-updater = false
+# Steps to run before each build, relative to .github/workflows; a failed step stops the release
+github-build-setup = "../build-setup.yml"

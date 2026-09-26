@@ -9,7 +9,7 @@ like Go channels:
 - `receive(channels)` waits for the first reply on any of the channels, up to 50 s.
 - `close(channel)` stops the agent and ends the channel.
 
-Each channel is one agent session. Each message runs `claude -p`, `codex exec` or `grok -p`
+Each channel is one agent session. Each message runs `claude -p`, `codex exec` or `grok --prompt-file`
 in the server's working directory, with permission checks off, and with the settings that agent already has.
 
 ## Install
@@ -44,6 +44,9 @@ command = "agentchan"
 The called agent runs with permission checks off. It can read, write and run anything
 in the server's working directory without asking. Any agent that can call agentchan gets
 that access.
+
+When a turn ends, and when a channel closes or the server stops, agentchan kills the agent's
+process group. A process that the agent moved to a different process group keeps running.
 
 ## Test
 
