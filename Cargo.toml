@@ -1,0 +1,16 @@
+[package]
+name = "agentchan"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.104"
+libc = "0.2.189"
+rmcp = { version = "3.4.1", features = ["server", "transport-io", "macros"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tokio = { version = "1.53.1", features = ["macros", "rt-multi-thread", "process", "io-util", "sync", "time"] }
+
+[dev-dependencies]
+rmcp = { version = "3.4.1", features = ["client", "transport-child-process"] }
+tempfile = "3.27.0"
