@@ -1,6 +1,6 @@
 [package]
 name = "agentchan"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2024"
 license = "MIT"
 description = "MCP server that lets one coding agent talk to another: Claude Code, Codex or Grok"
