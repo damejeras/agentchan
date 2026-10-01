@@ -1,0 +1,43 @@
+# Called by release.yml (cargo-dist's custom publish job) in place of dist's npm job.
+name: Stage npm package
+
+on:
+  workflow_call:
+    inputs:
+      plan:
+        required: true
+        type: string
+
+jobs:
+  stage-npm:
+    runs-on: ubuntu-22.04
+    env:
+      PLAN: ${{ inputs.plan }}
+    steps:
+      - name: Fetch npm packages
+        uses: actions/download-artifact@v8
+        with:
+          pattern: artifacts-*
+          path: npm/
+          merge-multiple: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.x'
+          # npm 12 needs Node 24.15 or later; a cached runner Node can be older.
+          check-latest: true
+          registry-url: 'https://registry.npmjs.org'
+      # A stage-only token needs npm 12.1 or later.
+      - run: npm install -g npm@12.2.0
+      # A staged version is published only when a maintainer approves it with 2FA.
+      - run: |
+          for release in $(echo "$PLAN" | jq --compact-output '.releases[] | select([.artifacts[] | endswith("-npm-package.tar.gz")] | any)'); do
+            pkg=$(echo "$release" | jq '.artifacts[] | select(endswith("-npm-package.tar.gz"))' --raw-output)
+            dir="npm/stage/${pkg%.tar.gz}"
+            mkdir -p "$dir"
+            tar -xzf "npm/${pkg}" -C "$dir"
+            npm stage publish --access public "./${dir}/package"
+            spec=$(jq -r '.name + "@" + .version' "${dir}/package/package.json")
+            echo "Staged ${spec} on npm. Approve it with 2FA: npmjs.com, Staged Packages, Approve." >> "$GITHUB_STEP_SUMMARY"
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

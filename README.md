@@ -20,6 +20,12 @@ Linux and macOS, prebuilt:
 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/damejeras/agentchan/releases/latest/download/agentchan-installer.sh | sh
 ```
 
+With npm, which downloads the same prebuilt binary:
+
+```sh
+npm install -g agentchan
+```
+
 From source:
 
 ```sh
@@ -31,6 +37,8 @@ The server offers every agent that is installed and signed in when it starts.
 ```sh
 # Claude Code
 claude mcp add --scope user agentchan -- agentchan
+# or, without installing it first
+claude mcp add --scope user agentchan -- npx -y agentchan
 ```
 
 ```toml

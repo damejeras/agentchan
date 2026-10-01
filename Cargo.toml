@@ -5,6 +5,7 @@ edition = "2024"
 license = "MIT"
 description = "MCP server that lets one coding agent talk to another: Claude Code, Codex or Grok"
 repository = "https://github.com/damejeras/agentchan"
+homepage = "https://github.com/damejeras/agentchan"
 readme = "README.md"
 keywords = ["mcp", "claude", "codex", "grok", "agent"]
 categories = ["command-line-utilities", "development-tools"]
